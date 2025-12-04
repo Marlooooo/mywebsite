@@ -1,0 +1,448 @@
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Dancing+Script:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&family=Playwrite+VN:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Dancing+Script:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&family=PT+Sans+Narrow:wght@400;700&family=Playwrite+VN:wght@100..400&display=swap');
+
+   @keyframes fadeIn {
+   from { opacity: 0.1; }             /* start */
+   to   { opacity: 1; }             /* end */
+   }
+
+
+
+body {
+   background-color: rgb(2, 35, 63);
+}
+
+.pagination a{
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 0 4px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+header{
+   display: flex;
+   justify-content: space-between;
+   margin: 0px 120px 0px 120px;
+}
+
+.navarroHeader{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.nHeaderText {
+   color:rgb(5, 189, 173);
+   font-size: 65px;
+   font-family: "Dancing Script", serif;
+   display: flex;
+   align-items: center;
+   margin: 0;
+}
+.avarriHeaderText{
+   color: white;
+   font-size: 40px; 
+}
+
+.menuContainer{
+   width: fit-content;
+   justify-content: center;
+   align-content: center;
+
+}
+
+.menuContainer ul{
+   display: flex;
+   justify-content: space-around;
+   list-style-type: none;
+}
+
+.menuContainer a{
+   font-family: monospace;
+   font-size: 17px;
+   text-decoration: none;
+   color: white;
+}
+
+.bodyContent{
+   margin: 70px 100px 0px 100px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.leftBodyContent{
+   display: flex;
+   flex-direction: column;
+   gap: 80px;
+}
+
+.introduction{
+   width: fit-content;
+}
+
+.hello h1{
+   font-size: 50px;
+   color: white;
+   font-family: 'Courier New', Courier, monospace;
+   display: inline;
+   font-weight: 300;
+}
+
+
+
+.imNameContainer{
+   display: flex;
+   flex-direction: row;
+   gap: 30px;
+   
+}
+.im{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.im h1{
+   font-size: 45px;
+   color: white;
+   font-family: 'Courier New', Courier, monospace;
+   margin: 0px;
+   width: fit-content;
+   font-weight: 300;
+}
+.name h1{
+   width: fit-content;
+   height: max-content;
+   font-size: 55px;
+   color:rgb(5, 189, 173);
+   font-family:'Courier New', Courier, monospace ;
+   margin: 0px;
+   animation: fadeIn 0.8s ease-in forwards;
+}
+
+.course{
+   height: fit-content;
+   width: fit-content;
+   display: flex;
+   gap: 8px;
+}
+
+
+.itCourse{
+   font-size: 25px;
+   color: white;
+   font-family: "PT Sans Narrow", serif;
+   width: fit-content;
+   height: fit-content;
+   margin: 0%;
+   font-weight: 500;
+}
+.role{
+   width: fit-content;
+   height: 40px;
+   margin-top: 20px;
+
+}
+.role .frontDev{
+   font-family: "PT Sans Narrow", serif;
+   font-size: 40px;
+   color: white;
+   width: fit-content;
+   height: fit-content;
+   margin: 0%;
+}
+
+.socialMedia{
+   display: flex;
+   gap: 10px;
+}
+.fb, .ig, .github, .linkedin{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 50%;
+   background-color: white;
+   width: 60px;
+   height: 60px;
+}
+.socialMedia a{
+   all: unset;
+   cursor: pointer;
+}
+
+.projOverviewTitle{     
+   display: flex;
+   flex-wrap: wrap;
+}
+.projOverviewTitle h3{
+   font-family: "PT Sans Narrow", serif;
+   font-size: 25px;
+   color: white;
+   padding: 0px 0px 20px 0px;
+   margin: 0;
+   height: fit-content;
+   width: fit-content;
+   opacity: 90%;
+}
+
+.projectOverview{
+   display: flex;
+   flex-direction: column;
+   gap: 40px;
+}
+.firstProjTitle{
+   padding-left: 6px;
+   margin: 0px 0px 0px 0px;
+   font-family: monospace;
+   font-size: 15px;
+   color: white;
+}
+
+.firstProj img{
+   width: 400px;
+   height: 200px;
+   border-radius: 10px;
+}
+.secondProjTitle{
+   margin: 0px 0px 0px 0px;
+   padding-left: 6px;
+   font-family: monospace;
+   font-size: 15px;
+   color: white;
+}
+
+.secondProj img{
+   width: 400px;
+   height: 200px;
+   border-radius: 10px;
+}
+
+.thirdProj img{
+   width: 400px;
+   height: 200px;
+   border-radius: 10px;
+}
+
+@media (max-width: 1025px){
+   .imNameContainer{
+      display: flex;
+      flex-direction: column;
+      align-items: first baseline;
+      gap: 0px;
+   }
+}
+
+@media (max-width: 769px){
+
+   .bodyContent{
+      margin: 70px 50px 0px 50px;
+      display: flex;
+      justify-content: space-between;
+   }
+   header{
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 40px 0px 40px;
+   }
+   .nHeaderText{
+      font-size: 45px;
+   }
+   .avarriHeaderText{
+      font-size: 30px;
+   }
+   .menuContainer a{
+     font-size: 11px; 
+   }
+
+
+   .leftBodyContent{
+      gap: 30px;
+   }
+   .hello h1{
+      font-size: 40px;
+   }
+   .imNameContainer h1{
+      font-size: 40px;
+   }
+   .imNameContainer{
+      word-spacing: -5px;
+   }
+   .name h1{
+      font-size: 45px;
+   }
+   .course h1{
+      font-size: 20px;
+   }
+
+   .role{
+      margin: 15px 0px 0px 0px;
+   }
+   .role .frontDev{
+      font-size: 30px;
+   }
+
+   .fb, .ig, .github, .linkedin{
+      width: 40px;
+      height: 40px;
+   }
+
+   .firstProj img{
+      width: 280px;
+      height: 150px;
+   }
+  .secondProj img{
+     width: 280px;
+      height: 150px;
+   }
+   .projOverviewTitle h3{
+      font-size: 23px;
+      margin: 0px;
+      padding: 0px 0px 10px 0px;
+   }
+   .projectOverview h4{
+      font-size: 15px ;
+   }
+  
+}
+
+
+@media (max-width: 426px){
+
+   header{
+      padding: 10px 5px 0px 5px;
+      margin: 0px;
+   }
+   .nHeaderText{
+      font-size: 35px;
+   }
+   .avarriHeaderText{
+      font-size: 25px;
+   }
+
+   .menuContainer a{
+      font-size: 9px;
+      padding: 6px 10px 6px 10px;
+      margin: 0px 2px 0px 2px;
+   }
+   .menuContainer ul{
+    padding: 0px;
+    margin: 0px;
+   }
+
+  .bodyContent{
+      padding: 20px 10px 0px 10px;
+      margin: 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+   }
+   .leftBodyContent{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+   .fb, .ig, .github, .linkedin{
+      width: 30px;
+      height: 30px;
+   }
+   .introduction{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
+   .introduction h1{
+      font-size: 35px;
+   }
+   .course h1{
+      font-size: 17px;
+   }
+   .role{
+      margin: 0px 0px 0px 0px;
+   }
+   .imNameContainer{
+      display: flex;
+      flex-direction: row;
+      word-spacing: -1px;
+      gap: 20px;
+   }
+   .course{
+      gap: 8px;
+   }
+
+   .rightBodyContent{
+   display: flex;
+   justify-content: center;
+   }
+    .projOverviewTitle h3{
+      font-size: 21px;
+      margin: 0px;
+      padding: 0px 0px 10px 0px;
+   }
+
+}
+
+@media (max-width: 376px){
+ .nHeaderText{
+      font-size: 25px;
+   }
+   .avarriHeaderText{
+      font-size: 15px;
+   }
+   .leftBodyContent{
+      gap: 20px;
+   }
+   .fb, .ig, .github, .linkedin{
+      width: 25px;
+      height: 25px;
+   }
+
+   .menuContainer a{
+      font-size: 6.5px;
+      padding: 6px 10px 6px 10px;
+      margin: 0px 2px 0px 2px;
+   }
+
+   .introduction h1{
+      font-size: 33px;
+   }
+    .course h1{
+      font-size: 15px;
+   }
+   .introduction .frontDev{
+      font-size: 25px;
+   }
+  
+}
+
+@media (max-width: 321px){
+     .projectOverview img{
+      width: 250px;
+      height: 120px;
+   }
+   .projectOverview h4{
+      font-size: 12px;
+   }
+   .introduction h1{
+      font-size: 27px;
+   }
+    .course h1{
+      font-size: 13px;
+   }
+   .introduction .frontDev{
+      font-size: 20px;
+   }
+   .imNameContainer{
+      gap: 10px;
+   }
+ 
+}
