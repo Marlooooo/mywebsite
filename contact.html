@@ -22,5 +22,217 @@
          </ul>
       </div>
    </header>
+
+   <textarea rows="12" cols="70">
+   <?php
+   try{
+      $conn = new PDO("mysql:host=localhost;dbname=filemanager","root","");
+      $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+   }
+   catch (PDOException $e){
+      echo json_encode([
+         "status"=>"failed",
+         "message"=>$e->getMessage()
+      ]);
+   }
+
+?></textarea>
+
+<textarea rows="22" cols="80"><?php
+require 'connection.php';
+header("Content-Type: application/json");
+$method=$_SERVER["REQUEST_METHOD"];
+$url=$_SERVER["REQUEST_URI"];
+
+$uri=parse_url($url,PHP_URL_PATH);
+$uri=str_replace("05files","",$uri);
+
+$urlParts=explode("/",trim($uri,"/"));
+
+if($urlParts[0]=="files"){
+   if($method=="POST" && count($urlParts)==1){
+      require './api/upload.php';
+   }elseif($method=="GET" && count($urlParts)==2){
+   
+   $id=$urlParts[1];
+   require './api/download.php';
+}
+elseif($method=="GET" && count($urlParts)==1){
+   require './api/view.php';
+}
+}
+else{
+   echo json_encode([
+      "status"=>"failed",
+      "message"=>"Invalid URL"
+   ]);
+}
+
+?></textarea>
+
+<textarea rows="6" cols="60">RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME}% !-f
+RewriteCond %{REQUEST_FILENAME}% !-d
+
+RewriteRule ^ index.php [QSA,L]
+</textarea>
+
+<textarea rows="35" cols="90"><?php 
+if($id){
+try{
+$sql="SELECT * FROM files WHERE id=?";
+$stmt=$conn->prepare($sql);
+$stmt->execute([
+    $id
+]);
+$result=$stmt->fetch(PDO::FETCH_ASSOC);
+if($result){
+    $path="uploads/".$result["filename"];
+    if(file_exists($path)){
+
+    $lastMod=filemtime($path);
+    $etag=md5_file($path);
+    if(isset($_SERVER["HTTP_IF_NONE_MATCH"]) && $_SERVER["HTTP_IF_NONE_MATCH"] == $etag){
+        header("HTTP/1.1 Not Modified");
+        exit();
+    }
+    if(isset($_SERVER["HTTP_IF_MODIFIED_SINCE"]) && $_SERVER["HTTP_IF_MODIFIED_SINCE"] >= $lastMod){
+          header("HTTP/1.1 Not Modified");
+        exit();
+    }
+
+    header("Cache-Control: public, max-age=86400");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s", $lastMod) . " GMT");
+    header("ETag: $etag");
+
+    
+
+    header("Content-Type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=".basename($result['origname']));
+    header("Content-Length: ".filesize($path));
+    readfile($path);
+    }
+}
+else{
+    echo json_encode(
+       [
+         "status"=>"failed",
+        "message"=>"No file found"
+       ]
+    );
+}
+}
+catch(PDOException $e){
+    echo json_encode([
+        "status"=>"failed",
+        "message"=>$e->getMessage()
+    ]);
+}
+}
+else{
+    echo json_encode(["status"=>"failed","message"=>"Missing ID"]);
+}
+
+
+
+
+
+
+?></textarea>
+
+<textarea rows="45" cols="90">   <?php
+   if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_FILES["file_upload"])){
+      $file=$_FILES["file_upload"];
+      $name=$file["name"];//original name
+      $size=$file["size"];
+      $error=$file["error"];
+      $tmp=$file["tmp_name"];
+      $category="";
+      if($error==UPLOAD_ERR_OK){
+
+      $dir="uploads";
+         if(!is_dir($dir)){
+         mkdir($dir,0777,true);        
+         }
+      
+         if($size> 5 * 1024 *1024){
+               echo json_encode([
+                  "status"=>"failed",
+                  "message"=>"File exceeding limit(MAX:5MB)"
+               ]);
+               exit();
+         }
+
+         $allowed=["pdf","docx","png","jpg"];
+         $ext=strtolower(pathinfo($name,PATHINFO_EXTENSION));
+
+         if(!in_array($ext,$allowed)){
+               echo json_encode([
+                  "status"=>"failed",
+                  "message"=>"Extension not allowed"
+               ]); 
+               exit(); 
+         }
+         if($ext=="pdf"){
+               $category="pdf";
+         }elseif($ext=="docx"){
+               $category="docx";
+         }elseif($ext=="png"){
+               $category="png";
+         }
+         elseif($ext=="jpg"){
+               $category="jpg";
+         }
+
+
+      $filename=time()."_".$name;
+      $destination=$dir. DIRECTORY_SEPARATOR . $filename;
+
+   if(move_uploaded_file($tmp,$destination)){
+      try{
+         $sql="INSERT INTO files(origname,filename,category) VALUES(?,?,?)";
+         $stmt=$conn->prepare($sql);
+         $stmt->execute([
+               $name,$filename,$category
+         ]);
+
+         echo json_encode([
+               "status"=>"success",
+               "message"=>"File is uploaded successfully"
+         ]);
+
+      }
+   catch(PDOException $e){
+      echo json_encode([
+         "status"=>"failed",
+         "message"=>$e->getMessage()
+      ]);
+   }
+
+   }
+
+      }else{
+         echo json_encode([
+               "status"=>"failed",
+               "message"=>"Error while uploading file"
+         ]);
+      }
+
+
+   }
+   else{
+      echo json_encode([
+         "status"=>"failed",
+         "message"=>"Invalid method or Missing file"
+      ]);
+   }
+
+
+
+
+
+   ?></textarea>
+
 </body>
 </html>
